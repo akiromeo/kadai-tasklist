@@ -15,6 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
 
     if @task.save
       flash[:success] = 'Task が正常に投稿されました'
@@ -55,7 +56,6 @@ private
   # Strong Parameter
   def task_params
     params.require(:task).permit(:content, :status)
-    @task.user_id = current_user.id
   end
 
 end
